@@ -40,9 +40,9 @@ function breakfast()
 {
     target=$1
     local variant=$2
-    VIPER_DEVICES_ONLY="true"
+    ECEM_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
-    for f in `/bin/ls vendor/viper/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/ecem/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -63,11 +63,11 @@ function breakfast()
                 variant="userdebug"
             fi
 
-            if ! check_product viper_$target && check_product viper_$target; then
+            if ! check_product ecem_$target && check_product ecem_$target; then
                 echo "** Warning: '$target' is using CM-based makefiles. This will be deprecated in the next major release."
-                lunch viper_$target-$variant
+                lunch ecem_$target-$variant
             else
-                lunch viper_$target-$variant
+                lunch ecem_$target-$variant
             fi
         fi
     fi
@@ -79,8 +79,8 @@ alias bib=breakfast
 function eat()
 {
     if [ "$OUT" ] ; then
-        MODVERSION=$(get_build_var VIPER_VERSION)
-        ZIPFILE=viper-$MODVERSION.zip
+        MODVERSION=$(get_build_var ECEM_VERSION)
+        ZIPFILE=EcemUI-$MODVERSION.zip
         ZIPPATH=$OUT/$ZIPFILE
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
@@ -95,7 +95,7 @@ function eat()
             done
             echo "Device Found.."
         fi
-        if (adb shell getprop ro.viper.device | grep -q "$VIPER_BUILD"); then
+        if (adb shell getprop ro.ecem.device | grep -q "$ECEM_BUILD"); then
             # if adbd isn't root we can't write to /cache/recovery/
             adb root
             sleep 1
@@ -111,7 +111,7 @@ EOF
             fi
             rm /tmp/command
         else
-            echo "The connected device does not appear to be $VIPER_BUILD, run away!"
+            echo "The connected device does not appear to be $ECEM_BUILD, run away!"
         fi
         return $?
     else
@@ -318,7 +318,7 @@ function installboot()
     sleep 1
     adb wait-for-online shell mount /system 2>&1 > /dev/null
     adb wait-for-online remount
-    if (adb shell getprop ro.viper.device | grep -q "$VIPER_BUILD");
+    if (adb shell getprop ro.ecem.device | grep -q "$ECEM_BUILD");
     then
         adb push $OUT/boot.img /cache/
         if [ -e "$OUT/system/lib/modules/*" ];
@@ -332,7 +332,7 @@ function installboot()
         adb shell dd if=/cache/boot.img of=$PARTITION
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $VIPER_BUILD, run away!"
+        echo "The connected device does not appear to be $ECEM_BUILD, run away!"
     fi
 }
 
@@ -366,13 +366,13 @@ function installrecovery()
     sleep 1
     adb wait-for-online shell mount /system 2>&1 >> /dev/null
     adb wait-for-online remount
-    if (adb shell getprop ro.viper.device | grep -q "$VIPER_BUILD");
+    if (adb shell getprop ro.ecem.device | grep -q "$ECEM_BUILD");
     then
         adb push $OUT/recovery.img /cache/
         adb shell dd if=/cache/recovery.img of=$PARTITION
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $VIPER_BUILD, run away!"
+        echo "The connected device does not appear to be $ECEM_BUILD, run away!"
     fi
 }
 
@@ -793,7 +793,7 @@ function dopush()
         echo "Device Found."
     fi
 
-    if (adb shell getprop ro.viper.device | grep -q "$VIPER_BUILD") || [ "$FORCE_PUSH" = "true" ];
+    if (adb shell getprop ro.ecem.device | grep -q "$ECEM_BUILD") || [ "$FORCE_PUSH" = "true" ];
     then
     # retrieve IP and PORT info if we're using a TCP connection
     TCPIPPORT=$(adb devices \
@@ -911,7 +911,7 @@ EOF
     rm -f $OUT/.log
     return 0
     else
-        echo "The connected device does not appear to be $VIPER_BUILD, run away!"
+        echo "The connected device does not appear to be $ECEM_BUILD, run away!"
     fi
 }
 
@@ -924,13 +924,13 @@ alias cmkap='dopush cmka'
 
 function repopick() {
     T=$(gettop)
-    $T/vendor/viper/build/tools/repopick.py $@
+    $T/vendor/ecem/build/tools/repopick.py $@
 }
 
 function fixup_common_out_dir() {
     common_out_dir=$(get_build_var OUT_DIR)/target/common
     target_device=$(get_build_var TARGET_DEVICE)
-    if [ ! -z $VIPER_FIXUP_COMMON_OUT ]; then
+    if [ ! -z $ECEM_FIXUP_COMMON_OUT ]; then
         if [ -d ${common_out_dir} ] && [ ! -L ${common_out_dir} ]; then
             mv ${common_out_dir} ${common_out_dir}-${target_device}
             ln -s ${common_out_dir}-${target_device} ${common_out_dir}

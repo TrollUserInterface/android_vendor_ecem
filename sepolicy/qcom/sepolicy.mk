@@ -1,2 +1,2 @@
 BOARD_SEPOLICY_DIRS += \
-    vendor/viper/sepolicy/qcom
+    vendor/ecem/sepolicy/qcom

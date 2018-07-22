@@ -1,7 +1,7 @@
 #!/sbin/sh
 # 
-# /system/addon.d/50-viper.sh
-# During a ViperOs upgrade, this script backs up /system/etc/hosts,
+# /system/addon.d/50-ecem.sh
+# During a EcemUI upgrade, this script backs up /system/etc/hosts,
 # /system is formatted and reinstalled, then the file is restored.
 #
 

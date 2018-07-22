@@ -1,4 +1,4 @@
-# ViperOs Extras
+# Ecemui Extras
 on init
     export ANDROID_CACHE /cache
     export TERMINFO /system/etc/terminfo

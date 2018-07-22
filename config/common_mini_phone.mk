@@ -1,7 +1,7 @@
-$(call inherit-product, vendor/viper/config/common_mini.mk)
+$(call inherit-product, vendor/ecem/config/common_mini.mk)
 
-# Required VIPER packages
+# Required Ecem packages
 PRODUCT_PACKAGES += \
     LatinIME
 
-$(call inherit-product, vendor/viper/config/telephony.mk)
+$(call inherit-product, vendor/ecem/config/telephony.mk)

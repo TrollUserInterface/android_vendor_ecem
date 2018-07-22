@@ -1,9 +1,9 @@
-# Inherit common VIPER stuff
-$(call inherit-product, vendor/viper/config/common_full.mk)
+# Inherit common Ecem stuff
+$(call inherit-product, vendor/ecem/config/common_full.mk)
 
-# Required VIPER packages
+# Required Ecem packages
 PRODUCT_PACKAGES += \
     LatinIME
 
-# Include VIPER LatinIME dictionaries
-PRODUCT_PACKAGE_OVERLAYS += vendor/viper/overlay/dictionaries
+# Include Ecem LatinIME dictionaries
+PRODUCT_PACKAGE_OVERLAYS += vendor/ecem/overlay/dictionaries

@@ -1,4 +1,4 @@
-PRODUCT_BRAND ?= ViperOS
+PRODUCT_BRAND ?= EcemUI
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
@@ -28,37 +28,37 @@ endif
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/viper/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/viper/prebuilt/common/bin/50-viper.sh:system/addon.d/50-viper.sh \
-    vendor/viper/prebuilt/common/bin/blacklist:system/addon.d/blacklist
+    vendor/ecem/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/ecem/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/ecem/prebuilt/common/bin/50-ecem.sh:system/addon.d/50-ecem.sh \
+    vendor/ecem/prebuilt/common/bin/blacklist:system/addon.d/blacklist
 
 # System feature whitelists
 PRODUCT_COPY_FILES += \
-    vendor/viper/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
-    vendor/viper/config/permissions/power-whitelist.xml:system/etc/sysconfig/power-whitelist.xml
+    vendor/ecem/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
+    vendor/ecem/config/permissions/power-whitelist.xml:system/etc/sysconfig/power-whitelist.xml
 
 # Signature compatibility validation
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
+    vendor/ecem/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
 
 # init.d support
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/bin/sysinit:system/bin/sysinit
+    vendor/ecem/prebuilt/common/bin/sysinit:system/bin/sysinit
 
 ifneq ($(TARGET_BUILD_VARIANT),user)
 # userinit support
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
+    vendor/ecem/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
 endif
 
-# VIPER-specific init file
+# Ecem-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/etc/init.local.rc:root/init.viper.rc
+    vendor/ecem/prebuilt/common/etc/init.local.rc:root/init.ecem.rc
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
+    vendor/ecem/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -68,16 +68,16 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_0719.kl
 
-# This is ViperOS!
+# This is EcemUI!
 PRODUCT_COPY_FILES += \
-    vendor/viper/config/permissions/com.viper.android.xml:system/etc/permissions/com.viper.android.xml
+    vendor/ecem/config/permissions/com.ecem.android.xml:system/etc/permissions/com.ecem.android.xml
 
 # Include CM audio files
-include vendor/viper/config/cm_audio.mk
+include vendor/ecem/config/cm_audio.mk
 
 ifneq ($(TARGET_DISABLE_CMSDK), true)
 # CMSDK
-include vendor/viper/config/cmsdk_common.mk
+include vendor/ecem/config/cmsdk_common.mk
 endif
 
 ifeq ($(TARGET_USE_AUDIOFX), true)
@@ -114,18 +114,18 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # LatinIme Gestures
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
+    vendor/ecem/prebuilt/common/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
 
 # Camera Effects for devices without a vendor partition
 ifneq ($(filter shamu,$(TARGET_PRODUCT)),)
 PRODUCT_COPY_FILES +=  \
-    vendor/viper/prebuilt/common/media/LMspeed_508.emd:system/vendor/media/LMspeed_508.emd \
-    vendor/viper/prebuilt/common/media/PFFprec_600.emd:system/vendor/media/PFFprec_600.emd
+    vendor/ecem/prebuilt/common/media/LMspeed_508.emd:system/vendor/media/LMspeed_508.emd \
+    vendor/ecem/prebuilt/common/media/PFFprec_600.emd:system/vendor/media/PFFprec_600.emd
 endif
 
 # Android O emojis
 PRODUCT_COPY_FILES += \
-    vendor/viper/prebuilt/common/fonts/NotoColorEmoji.ttf:system/fonts/NotoColorEmoji.ttf
+    vendor/ecem/prebuilt/common/fonts/NotoColorEmoji.ttf:system/fonts/NotoColorEmoji.ttf
 
 # Prebuilt Packages
 PRODUCT_PACKAGES += \
@@ -134,14 +134,14 @@ PRODUCT_PACKAGES += \
     GDeskClock \
     Turbo
 
-# Required VIPER packages
+# Required Ecem packages
 PRODUCT_PACKAGES += \
     BluetoothExt \
     CMParts \
     Development \
     Profiles
 
-# Optional VIPER packages
+# Optional Ecem packages
 PRODUCT_PACKAGES += \
     libemoji \
     LiveWallpapersPicker \
@@ -152,7 +152,7 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full \
     librsjni
 
-# Custom VIPER packages
+# Custom Ecem packages
 PRODUCT_PACKAGES += \
     CMSettingsProvider \
     ExactCalculator \
@@ -168,7 +168,7 @@ PRODUCT_PACKAGES += \
     OmniStyle \
     OmniJaws
 
-# Extra tools in VIPER
+# Extra tools in Ecem
 PRODUCT_PACKAGES += \
     7z \
     bash \
@@ -259,47 +259,47 @@ PRODUCT_PACKAGES += \
     procrank
 endif
 
-DEVICE_PACKAGE_OVERLAYS += vendor/viper/overlay/common
+DEVICE_PACKAGE_OVERLAYS += vendor/ecem/overlay/common
 
 # Versioning System
-# ViperOs version.
-VIPER_VERSION_CODENAME := Coral
-VIPER_VERSION_NUMBER := v3.1.1
+# EcemUI version.
+ECEM_VERSION_CODENAME := Mizrak
+ECEM_VERSION_NUMBER := v1.0
 
-VIPER_DEVICE := $(VIPER_BUILD)
+ECEM_DEVICE := $(ECEM_BUILD)
 
-ifndef VIPER_BUILD_TYPE
-    VIPER_BUILD_TYPE := UNOFFICIAL
+ifndef ECEM_BUILD_TYPE
+    ECEM_BUILD_TYPE := UNOFFICIAL
     
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.viper.buildtype=unofficial
+    ro.ecem.buildtype=unofficial
 endif
 
-ifeq ($(VIPER_BUILD_TYPE), OFFICIAL)
+ifeq ($(ECEM_BUILD_TYPE), OFFICIAL)
 PRODUCT_PACKAGES += \
-    ViperOTA
+    EcemOTA
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ota.manifest=https://download.viper-os.com/ota/$(shell echo "$(VIPER_DEVICE)" | sed 's/viper_*//') \
+    ro.ota.manifest=$(shell echo "$(ECEM_DEVICE)" | sed 's/ecem_*//') \
     ro.ota.build.date=$(shell date +%Y%m%d)
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.viper.buildtype=official
+    ro.ecem.buildtype=official
 endif
 
 # Set all versions
-VIPER_VERSION := Viper-$(VIPER_DEVICE)-$(shell date +"%Y%m%d")-$(VIPER_VERSION_CODENAME)-$(VIPER_VERSION_NUMBER)-$(VIPER_BUILD_TYPE)
+ECEM_VERSION := EcemUI-$(ECEM_DEVICE)-$(shell date +"%Y%m%d")-$(ECEM_VERSION_CODENAME)-$(ECEM_VERSION_NUMBER)-$(ECEM_BUILD_TYPE)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
-    viper.ota.version=$(VIPER_VERSION) \
-    ro.viper.version=$(VIPER_VERSION)
+    ecem.ota.version=$(ECEM_VERSION) \
+    ro.ecem.version=$(ECEM_VERSION)
 
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    vendor/viper/build/target/product/security/viper
+    vendor/ecem/build/target/product/security/ecem
 
--include vendor/viper-priv/keys/keys.mk
+-include vendor/ecem-priv/keys/keys.mk
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
--include vendor/viper/config/partner_gms.mk
+-include vendor/ecem/config/partner_gms.mk
 -include vendor/cyngn/product.mk
 
 $(call prepend-product-if-exists, vendor/extra/product.mk)

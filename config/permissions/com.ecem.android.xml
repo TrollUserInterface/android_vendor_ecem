@@ -15,8 +15,7 @@
      limitations under the License.
 -->
 
-<!-- This feature shows that this is ViperOs -->
 <permissions>
-    <feature name="com.viper.android" />
+    <feature name="com.ecem.android" />
 </permissions>
 
