@@ -25,9 +25,9 @@ VENDOR=*** FILL IN VENDOR ****
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
 
-VIPER_ROOT="$MY_DIR"/../../..
+ECEM_ROOT="$MY_DIR"/../../..
 
-HELPER="$VIPER_ROOT"/vendor/viper/build/tools/extract_utils.sh
+HELPER="$ECEM_ROOT"/vendor/ecem/build/tools/extract_utils.sh
 if [ ! -f "$HELPER" ]; then
     echo "Unable to find helper script at $HELPER"
     exit 1
@@ -57,7 +57,7 @@ if [ -z "$SRC" ]; then
 fi
 
 # Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$VIPER_ROOT" false $CLEAN_VENDOR
+setup_vendor "$DEVICE" "$VENDOR" "$ECEM_ROOT" false $CLEAN_VENDOR
 
 extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
 

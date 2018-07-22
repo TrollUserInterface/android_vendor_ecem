@@ -65,15 +65,15 @@ function setup_vendor() {
         exit 1
     fi
 
-    export VIPER_ROOT="$3"
-    if [ ! -d "$VIPER_ROOT" ]; then
-        echo "\$VIPER_ROOT must be set and valid before including this script!"
+    export ECEM_ROOT="$3"
+    if [ ! -d "$ECEM_ROOT" ]; then
+        echo "\$ECEM_ROOT must be set and valid before including this script!"
         exit 1
     fi
 
     export OUTDIR=vendor/"$VENDOR"/"$DEVICE"
-    if [ ! -d "$VIPER_ROOT/$OUTDIR" ]; then
-        mkdir -p "$VIPER_ROOT/$OUTDIR"
+    if [ ! -d "$ECEM_ROOT/$OUTDIR" ]; then
+        mkdir -p "$ECEM_ROOT/$OUTDIR"
     fi
 
     VNDNAME="$6"
@@ -81,9 +81,9 @@ function setup_vendor() {
         VNDNAME="$DEVICE"
     fi
 
-    export PRODUCTMK="$VIPER_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
-    export ANDROIDMK="$VIPER_ROOT"/"$OUTDIR"/Android.mk
-    export BOARDMK="$VIPER_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
+    export PRODUCTMK="$ECEM_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
+    export ANDROIDMK="$ECEM_ROOT"/"$OUTDIR"/Android.mk
+    export BOARDMK="$ECEM_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
 
     if [ "$4" == "true" ] || [ "$4" == "1" ]; then
         COMMON=1
@@ -683,15 +683,15 @@ function get_file() {
 # Convert apk|jar .odex in the corresposing classes.dex
 #
 function oat2dex() {
-    local VIPER_TARGET="$1"
+    local ECEM_TARGET="$1"
     local OEM_TARGET="$2"
     local SRC="$3"
     local TARGET=
     local OAT=
 
     if [ -z "$BAKSMALIJAR" ] || [ -z "$SMALIJAR" ]; then
-        export BAKSMALIJAR="$VIPER_ROOT"/vendor/viper/build/tools/smali/baksmali.jar
-        export SMALIJAR="$VIPER_ROOT"/vendor/viper/build/tools/smali/smali.jar
+        export BAKSMALIJAR="$ECEM_ROOT"/vendor/ecem/build/tools/smali/baksmali.jar
+        export SMALIJAR="$ECEM_ROOT"/vendor/ecem/build/tools/smali/smali.jar
     fi
 
     # Extract existing boot.oats to the temp folder
@@ -716,11 +716,11 @@ function oat2dex() {
         FULLY_DEODEXED=1 && return 0 # system is fully deodexed, return
     fi
 
-    if [ ! -f "$VIPER_TARGET" ]; then
+    if [ ! -f "$ECEM_TARGET" ]; then
         return;
     fi
 
-    if grep "classes.dex" "$VIPER_TARGET" >/dev/null; then
+    if grep "classes.dex" "$ECEM_TARGET" >/dev/null; then
         return 0 # target apk|jar is already odexed, return
     fi
 
@@ -731,7 +731,7 @@ function oat2dex() {
 
         if get_file "$OAT" "$TMPDIR" "$SRC"; then
             java -jar "$BAKSMALIJAR" deodex -o "$TMPDIR/dexout" -b "$BOOTOAT" -d "$TMPDIR" "$TMPDIR/$(basename "$OAT")"
-        elif [[ "$VIPER_TARGET" =~ .jar$ ]]; then
+        elif [[ "$ECEM_TARGET" =~ .jar$ ]]; then
             # try to extract classes.dex from boot.oats for framework jars
             JAROAT="$TMPDIR/system/framework/$ARCH/boot-$(basename ${OEM_TARGET%.*}).oat"
             if [ ! -f "$JAROAT" ]; then
@@ -819,7 +819,7 @@ function extract() {
     local HASHLIST=( ${PRODUCT_COPY_FILES_HASHES[@]} ${PRODUCT_PACKAGES_HASHES[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_ROOT="$VIPER_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_ROOT="$ECEM_ROOT"/"$OUTDIR"/proprietary
     local OUTPUT_TMP="$TMPDIR"/"$OUTDIR"/proprietary
 
     if [ "$SRC" = "adb" ]; then
@@ -827,7 +827,7 @@ function extract() {
     fi
 
     if [ -f "$SRC" ] && [ "${SRC##*.}" == "zip" ]; then
-        DUMPDIR="$VIPER_ROOT"/system_dump
+        DUMPDIR="$ECEM_ROOT"/system_dump
 
         # Check if we're working with the same zip that was passed last time.
         # If so, let's just use what's already extracted.
@@ -847,7 +847,7 @@ function extract() {
             # If OTA is block based, extract it.
             elif [ -a "$DUMPDIR"/system.new.dat ]; then
                 echo "Converting system.new.dat to system.img"
-                python "$VIPER_ROOT"/vendor/cm/build/tools/sdat2img.py "$DUMPDIR"/system.transfer.list "$DUMPDIR"/system.new.dat "$DUMPDIR"/system.img 2>&1
+                python "$ECEM_ROOT"/vendor/cm/build/tools/sdat2img.py "$DUMPDIR"/system.transfer.list "$DUMPDIR"/system.new.dat "$DUMPDIR"/system.img 2>&1
                 rm -rf "$DUMPDIR"/system.new.dat "$DUMPDIR"/system
                 mkdir "$DUMPDIR"/system "$DUMPDIR"/tmp
                 echo "Requesting sudo access to mount the system.img"
@@ -1006,7 +1006,7 @@ function extract_firmware() {
     local FILELIST=( ${PRODUCT_COPY_FILES_LIST[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_DIR="$VIPER_ROOT"/"$OUTDIR"/radio
+    local OUTPUT_DIR="$ECEM_ROOT"/"$OUTDIR"/radio
 
     if [ "$VENDOR_RADIO_STATE" -eq "0" ]; then
         echo "Cleaning firmware output directory ($OUTPUT_DIR).."
