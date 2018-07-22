@@ -1,7 +1,5 @@
-ViperOs Project
+Ecem User Interface
 ===============
-
-![ViperOS](http://i.imgur.com/bwSVDSV.png)
 
 Download the Source
 ===================
@@ -13,26 +11,21 @@ Initializing Repository
 
 Initiate core trees without any device/kernel/vendor:
 
-    repo init -u https://github.com/ViperOS-Project/viper_manifest.git -b nougat
+    $ repo init -u https://github.com/EcemUserInterface/android.git -b nougat
 
-Then to sync up:
+Sync the repository:
 
-    repo sync -c -f -j8 --force-sync --no-clone-bundle --no-tags
+    $ repo sync -c -f -j64 --force-sync --no-clone-bundle --no-tags
 
-*** 
+***
 
-Building 
--------- 
+Building
+--------
 
-After the sync is finished, please read the [instructions from the Android site](http://s.android.com/source/building.html) on 
-how to build.
-
-    . build/envsetup.sh
-
-    lunch You can also build for specific devices (eg. hammerhead) like this:
+After the sync is finished, please read the [instructions from the Android site](http://s.android.com/source/building.html) on how to build.
 
     . build/envsetup.sh
-    lunch viper_hammerhead-userdebug
-    mka poison
+    lunch
 
 Remember to `make clobber && make clean` every now and then!
+
