@@ -54,7 +54,7 @@ endif
 
 # Ecem-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/ecem/prebuilt/common/etc/init.local.rc:root/init.ecem.rc
+    vendor/ecem/prebuilt/common/etc/init.local.rc:root/init.viper.rc
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
@@ -70,7 +70,7 @@ PRODUCT_COPY_FILES += \
 
 # This is EcemUI!
 PRODUCT_COPY_FILES += \
-    vendor/ecem/config/permissions/com.ecem.android.xml:system/etc/permissions/com.ecem.android.xml
+    vendor/ecem/config/permissions/com.viper.android.xml:system/etc/permissions/com.viper.android.xml
 
 # Include CM audio files
 include vendor/ecem/config/cm_audio.mk
