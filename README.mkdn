@@ -1,6 +1,8 @@
 Ecem User Interface
 ===============
 
+![EcemUI](https://github.com/TrollUserInterface/android/blob/nougat/VD3Vbj.png)
+
 Download the Source
 ===================
 
@@ -11,11 +13,11 @@ Initializing Repository
 
 Initiate core trees without any device/kernel/vendor:
 
-    $ repo init -u https://github.com/EcemUserInterface/android.git -b nougat
+    $ repo init -u https://github.com/TrollUserInterface/android.git -b nougat
 
 Sync the repository:
 
-    $ repo sync -c -f -j64 --force-sync --no-clone-bundle --no-tags
+    $ repo sync -j64
 
 ***
 
@@ -28,4 +30,3 @@ After the sync is finished, please read the [instructions from the Android site]
     lunch
 
 Remember to `make clobber && make clean` every now and then!
-
