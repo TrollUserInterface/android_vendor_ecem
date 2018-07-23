@@ -159,7 +159,7 @@ PRODUCT_PACKAGES += \
     LiveLockScreenService \
     ThemeInterfacer \
     WallpaperPicker \
-    VPapers \
+    EcemPapers \
     Gallery2 \
     Jelly
 
