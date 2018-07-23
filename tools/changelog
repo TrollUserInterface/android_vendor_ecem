@@ -3,7 +3,7 @@
 # Exports
 dir=$ANDROID_BUILD_TOP
 out=$dir/out/target/product
-. $dir/vendor/viper/tools/colors
+. $dir/vendor/ecem/tools/colors
 
 export Changelog=Changelog.txt
 
