@@ -2,6 +2,8 @@ PRODUCT_BRAND ?= EcemUI
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
+DEVICE_PACKAGE_OVERLAYS += vendor/ecem/overlay/common
+
 ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.clientidbase=android-google
@@ -13,6 +15,7 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
 
+# Selinux
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
 
@@ -54,7 +57,7 @@ endif
 
 # Ecem-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/ecem/prebuilt/common/etc/init.local.rc:root/init.viper.rc
+    vendor/ecem/prebuilt/common/etc/init.local.rc:root/init.ecem.rc
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
@@ -70,7 +73,7 @@ PRODUCT_COPY_FILES += \
 
 # This is EcemUI!
 PRODUCT_COPY_FILES += \
-    vendor/ecem/config/permissions/com.viper.android.xml:system/etc/permissions/com.viper.android.xml
+    vendor/ecem/config/permissions/com.ecem.android.xml:system/etc/permissions/com.ecem.android.xml
 
 # Include CM audio files
 include vendor/ecem/config/cm_audio.mk
@@ -259,8 +262,6 @@ PRODUCT_PACKAGES += \
     procrank
 endif
 
-DEVICE_PACKAGE_OVERLAYS += vendor/ecem/overlay/common
-
 # Versioning System
 # EcemUI version.
 ECEM_VERSION_CODENAME := Mızrak
@@ -268,9 +269,16 @@ ECEM_VERSION_NUMBER := v1.0
 
 ECEM_DEVICE := $(ECEM_BUILD)
 
+# Set all versions
+ECEM_VERSION := EcemUI-$(ECEM_DEVICE)-$(shell date +"%Y%m%d")-$(ECEM_VERSION_CODENAME)-$(ECEM_VERSION_NUMBER)-$(ECEM_BUILD_TYPE)
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    BUILD_DISPLAY_ID=$(BUILD_ID) \
+    ro.ecem.version=$(ECEM_VERSION)
+
 ifndef ECEM_BUILD_TYPE
     ECEM_BUILD_TYPE := UNOFFICIAL
-    
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ecem.buildtype=unofficial
 endif
@@ -278,18 +286,12 @@ endif
 ifeq ($(ECEM_BUILD_TYPE), OFFICIAL)
 PRODUCT_PACKAGES += \
     CMUpdater
+
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ota.build.date=$(shell date +%Y%m%d)
+    ecem.ota.version=$(ECEM_VERSION) \
+    ro.ota.build.date=$(shell date +%Y%m%d) \
     ro.ecem.buildtype=official
 endif
-
-# Set all versions
-ECEM_VERSION := EcemUI-$(ECEM_DEVICE)-$(shell date +"%Y%m%d")-$(ECEM_VERSION_CODENAME)-$(ECEM_VERSION_NUMBER)-$(ECEM_BUILD_TYPE)
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    BUILD_DISPLAY_ID=$(BUILD_ID) \
-    ecem.ota.version=$(ECEM_VERSION) \
-    ro.ecem.version=$(ECEM_VERSION)
 
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     vendor/ecem/build/target/product/security/ecem
