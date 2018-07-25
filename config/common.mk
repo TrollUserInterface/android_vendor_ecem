@@ -277,11 +277,9 @@ endif
 
 ifeq ($(ECEM_BUILD_TYPE), OFFICIAL)
 PRODUCT_PACKAGES += \
-    EcemOTA
+    CMUpdater
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ota.manifest=$(shell echo "$(ECEM_DEVICE)" | sed 's/ecem_*//') \
     ro.ota.build.date=$(shell date +%Y%m%d)
-PRODUCT_PROPERTY_OVERRIDES += \
     ro.ecem.buildtype=official
 endif
 
