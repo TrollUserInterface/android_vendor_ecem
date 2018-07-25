@@ -1,7 +1,7 @@
 Ecem User Interface
 ===============
 
-![EcemUI](https://github.com/TrollUserInterface/android/blob/nougat/VD3Vbj.png)
+![EcemUI](https://github.com/TrollUserInterface/android/blob/nougat/Ecem.png)
 
 Download the Source
 ===================
