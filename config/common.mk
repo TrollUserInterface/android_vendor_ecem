@@ -263,7 +263,7 @@ DEVICE_PACKAGE_OVERLAYS += vendor/ecem/overlay/common
 
 # Versioning System
 # EcemUI version.
-ECEM_VERSION_CODENAME := Mizrak
+ECEM_VERSION_CODENAME := Mızrak
 ECEM_VERSION_NUMBER := v1.0
 
 ECEM_DEVICE := $(ECEM_BUILD)
